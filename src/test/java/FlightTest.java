@@ -1,5 +1,6 @@
 import Aeroplane.Plane;
 import Aeroplane.PlaneType;
+import Flight.Flight;
 import org.junit.Before;
 import org.junit.Test;
 import people.CabinCrewMember;
@@ -73,7 +74,7 @@ public class FlightTest {
     public void addCabinCrewToFlight() {
         cabinCrewMember = new CabinCrewMember("Melanie Slade", CrewRank.PILOT);
         flight.addCrewMembers(cabinCrewMember);
-        assertEquals(1, flight.countCrewMembere());
+        assertEquals(1, flight.countCrewMembers());
     }
 
     @Test
@@ -135,7 +136,8 @@ public class FlightTest {
         flight.addMultiplePassengers(flightPassengers);
 
         Passenger passenger5 = new Passenger("Jimmy Love", 1);
-        assertEquals(5, flight.checkInPassenger(passenger5));
+        assertEquals("Passenger added to flight", flight.checkInPassenger(passenger5));
+        assertEquals(5, flight.countPassengers());
     }
 
     @Test
@@ -155,6 +157,12 @@ public class FlightTest {
         flight.addMultiplePassengers(flightPassengers);
 
         Passenger passenger5 = new Passenger("Jimmy Love", 1);
-        assertEquals(3, flight.checkInPassenger(passenger5));
+        assertEquals("Sorry this flight is full", flight.checkInPassenger(passenger5));
+        assertEquals(3, flight.countPassengers());
+    }
+
+    @Test
+    public void getTotalBagsForFlight() {
+        assertEquals(9, flight.getTotalBags());
     }
  }

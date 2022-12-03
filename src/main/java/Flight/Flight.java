@@ -1,3 +1,5 @@
+package Flight;
+
 import Aeroplane.Plane;
 import people.CabinCrewMember;
 import people.Passenger;
@@ -66,7 +68,7 @@ public class Flight {
         this.cabinCrewMembers.add(cabinCrewMember);
     }
 
-    public int countCrewMembere() {
+    public int countCrewMembers() {
         return this.cabinCrewMembers.size();
     }
     public int countPassengers() {
@@ -88,9 +90,20 @@ public class Flight {
         return this.passengers.size();
     }
     //This needs refactored to be void
-    public int checkInPassenger(Passenger passenger) {
+    public String checkInPassenger(Passenger passenger) {
         if (this.passengers.size() < plane.getCapacity()) {
             this.passengers.add(passenger);
-        } return this.passengers.size();
+            return "Passenger added to flight";
+        } else {
+            return "Sorry this flight is full";
+        }
+    }
+
+    public int getTotalBags() {
+        ArrayList<Passenger> allPassengers = getPassengers();
+        int total = 0;
+        for (Passenger passenger : allPassengers) {
+             total += passenger.countBags();
+        } return total;
     }
 }
