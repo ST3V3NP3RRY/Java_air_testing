@@ -7,7 +7,11 @@ import people.CabinCrewMember;
 import people.CrewRank;
 import people.Passenger;
 
+
+
+import java.time.LocalTime;
 import java.util.ArrayList;
+
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,10 +25,13 @@ public class FlightTest {
 
     Plane plane;
 
+    LocalTime flightTime;
+
     @Before
     public void before() {
+        flightTime = LocalTime.of(22, 45);
         plane = new Plane(PlaneType.AIRBUSA330, 150, 12000);
-        flight = new Flight(plane, "NY567", "New York", "London Heathrow", "06:00am");
+        flight = new Flight(plane, "NY567", "New York", "London Heathrow", flightTime);
 
         Passenger passenger1 = new Passenger("Debbie McClean", 2);
         Passenger passenger2 = new Passenger("Stewart McClean", 1);
@@ -45,8 +52,9 @@ public class FlightTest {
 
     @Test
     public void flightHasPlane() {
+        flightTime = LocalTime.of(22, 45);
         Plane newPlane = new Plane(PlaneType.AIRBUSA330, 150, 12000);
-        Flight flight1 = new Flight(newPlane, "EZY456", "Edinburgh", "Amsterdam", "22:00pm" );
+        Flight flight1 = new Flight(newPlane, "EZY456", "Edinburgh", "Amsterdam", flightTime );
         assertEquals(newPlane, flight1.getPlane());
     }
 
@@ -67,7 +75,7 @@ public class FlightTest {
 
     @Test
     public void flightHasDepartureTime() {
-        assertEquals("06:00am", flight.getDepartureTime());
+        assertEquals(flightTime, flight.getDepartureTime());
     }
 
     @Test
@@ -89,12 +97,16 @@ public class FlightTest {
     }
 
     @Test
-    public void addPassengerToPlane() {
-        assertEquals(5, flight.countPassengers());
+    public void addPassengerToFlight() {
+        Passenger passenger6 = new Passenger("Hamish Scott", 2);
+        flight.addPassenger(passenger6);
+        passenger6.addFlight(flight);
+        assertEquals(1, passenger6.countFlights());
+        assertEquals(6, flight.countPassengers());
     }
 
     @Test
-    public void addMultiplePassengersToPlane() {
+    public void addMultiplePassengersToFlight() {
         //Passengers
         Passenger passenger1 = new Passenger("Debbie McClean", 2);
         Passenger passenger2 = new Passenger("Stewart McClean", 1);
@@ -118,8 +130,9 @@ public class FlightTest {
 
     @Test
     public void addPassengerIfSeatsAvailable() {
+        flightTime = LocalTime.of(22, 45);
         Plane smallPlane = new Plane(PlaneType.PA31NAVAJO, 6, 4000);
-        flight = new Flight(smallPlane, "BE678", "Belfast", "Edinburgh", "08:45am");
+        flight = new Flight(smallPlane, "BE678", "Belfast", "Edinburgh", flightTime);
 
         //Initial Passenger setup
         Passenger passenger1 = new Passenger("Debbie McClean", 2);
@@ -142,8 +155,9 @@ public class FlightTest {
 
     @Test
     public void addPassengerIfSeatsAvailable_noCapacity() {
+        flightTime = LocalTime.of(22, 45);
         Plane smallPlane = new Plane(PlaneType.PA31NAVAJO, 3, 4000);
-        flight = new Flight(smallPlane, "BE678", "Belfast", "Edinburgh", "08:45am");
+        flight = new Flight(smallPlane, "BE678", "Belfast", "Edinburgh", flightTime);
 
         //Initial Passenger setup
         Passenger passenger1 = new Passenger("Debbie McClean", 2);

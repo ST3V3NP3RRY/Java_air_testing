@@ -8,6 +8,7 @@ import people.FlightManager;
 import people.Passenger;
 import Flight.Flight;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
@@ -20,10 +21,15 @@ public class FlightManagerTest {
 
     Flight flight;
 
+    LocalTime flightTime;
+
     @Before
     public void before() {
+
+        flightTime = LocalTime.of(22, 45);
+
         plane = new Plane(PlaneType.AIRBUSA330, 150, 12000);
-        flight = new Flight(plane, "NY567", "New York", "London Heathrow", "06:00am");
+        flight = new Flight(plane, "NY567", "New York", "London Heathrow", flightTime);
         flightManager = new FlightManager("Wendy Craig", plane, flight);
 
         Passenger passenger1 = new Passenger("Debbie McClean", 2);
