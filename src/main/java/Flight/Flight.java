@@ -91,7 +91,7 @@ public class Flight {
         this.passengers.clear();
         return this.passengers.size();
     }
-    //This needs refactored to be void
+
     public String checkInPassenger(Passenger passenger) {
         if (this.passengers.size() < plane.getCapacity()) {
             this.passengers.add(passenger);
